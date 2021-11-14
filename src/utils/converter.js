@@ -61,7 +61,7 @@ export default class Converter {
 				})
 				.on('progress', p => {
 					readline.cursorTo(process.stdout, 0);
-					const message = `${p.targetSize}kb downloaded; ${p.percent} %`;
+					const message = `${p.targetSize}kb downloaded; ${Math.round(p.percent)} %`;
 					if (this.CTX) {
 						this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
 					}

@@ -62,9 +62,9 @@ export default class Converter {
 				.on('progress', p => {
 					readline.cursorTo(process.stdout, 0);
 					const message = `${p.targetSize}kb downloaded; ${Math.round(p.percent)} %`;
-					if (this.CTX) {
-						this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
-					}
+					// TODO if (this.CTX) {
+					// 	this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
+					// }
 
 					if (p.targetSize > 1000000) {
 						reject(new Error('The file is very big 🛑'));
@@ -76,6 +76,7 @@ export default class Converter {
 					reject(new Error(error));
 				})
 				.on('end', () => {
+					this.CTX.telegram.sendMessage(this.CTX.message.chat.id, 'Done');
 					resolve();
 				},
 				)

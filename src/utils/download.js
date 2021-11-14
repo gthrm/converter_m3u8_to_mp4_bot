@@ -14,9 +14,6 @@ export async function download(m3uPath, ctx) {
 		const result = await saveToSpaces(fileNameInput);
 		return {result};
 	} catch (error) {
-		console.log('====================================');
-		console.log('download', error);
-		console.log('====================================');
 		const message = 'It\'s f*cking error';
 		const errorData = {error: {message, data: error}};
 		log.error(errorData);

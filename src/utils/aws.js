@@ -13,7 +13,7 @@ const s3 = new S3({
 export async function saveToSpaces(fileName) {
 	try {
 		const fileType = await FileType.fileTypeFromFile(fileName);
-		const fileContent = await fs.readFileSync(fileName);
+		const fileContent = await fs.createReadStream(fileName);
 		const start = Date.now();
 
 		const params = {

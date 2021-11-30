@@ -1,5 +1,6 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
+import {fileTypeFromFile} from 'file-type';
 
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
@@ -10,30 +11,30 @@ const s3 = new aws.S3({
 });
 
 export async function saveToSpaces(fileName) {
-	try {
-		const start = Date.now();
+	return fs.readFile(fileName, async (error, buffer) => {
+		if (error) {
+			throw new Error(error);
+		}
+
 		const key = `${DEFAULT_DIR}/${fileName}`;
-		const data = await s3
-			.putObject({
+		try {
+			const fileType = await fileTypeFromFile(fileName);
+			console.log('====================================');
+			console.log('fileType', fileType);
+			console.log('====================================');
+			const params = {
 				Bucket: SPACE_NAME,
 				Key: key,
-				Body: await fs.readFileSync(fileName),
+				Body: buffer,
+				ContentType: fileType?.mime,
 				ACL: 'public-read',
-			})
-			.promise();
-		console.log('====================================');
-		console.log('data', data);
-		console.log('====================================');
-		await fs.unlinkSync(fileName);
-		const time = (Date.now() - start) / 1000;
-		console.log('\nDownload complete', data);
-		console.log(`\ndone, thanks - ${time}s`);
-		return {
-			...data,
-			time,
-			url: `https://${SPACE_NAME}.${SPACE_ENDPOINT}/${key}`,
-		};
-	} catch (error) {
-		throw new Error(error);
-	}
+			};
+			console.log('====================================');
+			console.log('params', params);
+			console.log('====================================');
+			await s3.putObject(params).promise();
+		} catch (err) {
+			throw new Error(err);
+		}
+	});
 }

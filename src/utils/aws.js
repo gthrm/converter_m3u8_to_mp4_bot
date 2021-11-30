@@ -1,6 +1,6 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
-import S3 from 'aws-sdk/clients/s3';
+import S3 from 'aws-sdk/clients/s3.js';
 import * as FileType from 'file-type';
 
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;

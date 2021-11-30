@@ -13,7 +13,9 @@ export async function saveToSpaces(fileName) {
 	try {
 		const fileContent = await fs.readFileSync(fileName);
 		const start = Date.now();
-
+		console.log('====================================');
+		console.log('fileContent', fileContent);
+		console.log('====================================');
 		const params = {
 			Bucket: SPACE_NAME,
 			Key: `${DEFAULT_DIR}/${fileName}`,
@@ -21,6 +23,9 @@ export async function saveToSpaces(fileName) {
 			ACL: 'public-read',
 		};
 		const data = await s3.putObject(params).promise();
+		console.log('====================================');
+		console.log('data', data);
+		console.log('====================================');
 		await fs.unlinkSync(fileName);
 		const time = (Date.now() - start) / 1000;
 		console.log('\nDownload complete', data);

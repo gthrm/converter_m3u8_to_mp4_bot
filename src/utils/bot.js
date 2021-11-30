@@ -1,7 +1,7 @@
 import {Telegraf} from 'telegraf';
 import {download} from './download.js';
 import {log} from './logger.js';
-import {db, posts} from './db.js';
+import {posts} from './db.js';
 
 const {AVAILABLE_USER_IDS, BOT_TOKEN} = process.env;
 const HTTPS_IDENTIFIER = 'https://';
@@ -29,7 +29,6 @@ const handlerTextBot = async ctx => {
 			const {result} = await download(text, ctx);
 			log.info({result});
 			posts.push(result);
-			// await db.write();
 			return ctx.reply(`Url: ${result.url}, time: ${result.time}`);
 		} catch (error) {
 			log.error(error);

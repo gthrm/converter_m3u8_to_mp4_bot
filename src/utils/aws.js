@@ -1,6 +1,6 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
-
+import FileType from 'file-type';
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
 // Set S3 endpoint to DigitalOcean Spaces
@@ -11,6 +11,7 @@ const s3 = new aws.S3({
 
 export async function saveToSpaces(fileName) {
 	try {
+		const fileType = await FileType.fileTypeFromFile(fileName);
 		const fileContent = await fs.readFileSync(fileName);
 		const start = Date.now();
 
@@ -18,6 +19,7 @@ export async function saveToSpaces(fileName) {
 			Bucket: SPACE_NAME,
 			Key: `${DEFAULT_DIR}/${fileName}`,
 			Body: fileContent,
+			ContentType: fileType.mime,
 			ACL: 'public-read',
 		};
 		const data = await s3.putObject(params).promise();

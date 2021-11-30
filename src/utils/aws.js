@@ -1,6 +1,6 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
-import FileType from 'file-type';
+import * as FileType from 'file-type';
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
 // Set S3 endpoint to DigitalOcean Spaces

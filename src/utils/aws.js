@@ -18,6 +18,7 @@ export async function saveToSpaces(fileName) {
 
 		const key = `${DEFAULT_DIR}/${fileName}`;
 		try {
+			const start = Date.now();
 			const fileType = await FileType.fileTypeFromFile(fileName);
 			console.log('====================================');
 			console.log('fileType', fileType, 'fileName', fileName);
@@ -32,7 +33,13 @@ export async function saveToSpaces(fileName) {
 			console.log('====================================');
 			console.log('params', params);
 			console.log('====================================');
-			await s3.putObject(params).promise();
+			const data = await s3.putObject(params).promise();
+			const time = (Date.now() - start) / 1000;
+			return {
+				...data,
+				time,
+				url: `https://${SPACE_NAME}.${SPACE_ENDPOINT}/${params.Key}`,
+			};
 		} catch (err) {
 			throw new Error(err);
 		}

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
-import fileType from 'file-type';
+import FileType from 'file-type';
 
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
@@ -18,7 +18,7 @@ export async function saveToSpaces(fileName) {
 
 		const key = `${DEFAULT_DIR}/${fileName}`;
 		try {
-			const fileType = await fileType.fileTypeFromFile(fileName);
+			const fileType = await FileType.fileTypeFromFile(fileName);
 			console.log('====================================');
 			console.log('fileType', fileType, 'fileName', fileName);
 			console.log('====================================');

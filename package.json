@@ -12,7 +12,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "aws-sdk": "2.1023.0",
+    "aws-sdk": "2.939.0",
     "bunyan": "1.8.15",
     "express": "4.17.1",
     "express-rate-limit": "5.5.0",

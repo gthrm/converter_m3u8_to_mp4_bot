@@ -16,7 +16,7 @@
     "bunyan": "1.8.15",
     "express": "4.17.1",
     "express-rate-limit": "5.5.0",
-    "file-type": "^17.0.0",
+    "file-type": "17.0.0",
     "fluent-ffmpeg": "2.1.2",
     "lowdb": "3.0.0",
     "multer": "1.4.3",

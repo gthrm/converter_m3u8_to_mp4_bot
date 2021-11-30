@@ -1,13 +1,13 @@
 import fs from 'fs';
 import aws from 'aws-sdk';
+import S3 from 'aws-sdk/clients/s3';
 import * as FileType from 'file-type';
 
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
 // Set S3 endpoint to DigitalOcean Spaces
-const spacesEndpoint = new aws.Endpoint(SPACE_ENDPOINT);
-const s3 = new aws.S3({
-	endpoint: spacesEndpoint,
+const s3 = new S3({
+	endpoint: new aws.Endpoint(SPACE_ENDPOINT),
 });
 
 export async function saveToSpaces(fileName) {

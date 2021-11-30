@@ -11,7 +11,7 @@ const s3 = new S3({
 });
 
 export async function saveToSpaces(fileName) {
-	return fs.readFile(fileName, async (error, buffer) => {
+	fs.readFile(fileName, async (error, buffer) => {
 		if (error) {
 			throw new Error(error);
 		}

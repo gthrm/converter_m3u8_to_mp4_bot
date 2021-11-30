@@ -2,7 +2,6 @@ import fs from 'fs';
 import aws from 'aws-sdk';
 import fileType from 'file-type';
 
-const {fileTypeFromFile} = fileType;
 const {DEFAULT_DIR, SPACE_NAME, SPACE_ENDPOINT} = process.env;
 
 // Set S3 endpoint to DigitalOcean Spaces
@@ -19,9 +18,9 @@ export async function saveToSpaces(fileName) {
 
 		const key = `${DEFAULT_DIR}/${fileName}`;
 		try {
-			const fileType = await fileTypeFromFile(fileName);
+			const fileType = await fileType.fileTypeFromFile(fileName);
 			console.log('====================================');
-			console.log('fileType', fileType);
+			console.log('fileType', fileType, 'fileName', fileName);
 			console.log('====================================');
 			const params = {
 				Bucket: SPACE_NAME,

@@ -2,6 +2,7 @@ import ffmpeg from 'fluent-ffmpeg';
 import readline from 'readline';
 
 export default class Converter {
+	downloadPercent = 0;
 	/**
    * Sets the input file
    * @param {String} filename M3U8 file path. You can use remote URL
@@ -53,7 +54,10 @@ export default class Converter {
 			ffmpeg(this.M3U8_FILE)
 				.on('start', async () => {
 					if (this.CTX) {
-						const startMessage = await this.CTX.telegram.sendMessage(this.CTX.message.chat.id, 'Please wait');
+						const startMessage = await this.CTX.telegram.sendMessage(
+							this.CTX.message.chat.id,
+							'Please wait',
+						);
 
 						this.MESSAGE_ID = startMessage.message_id;
 						this.CHAT_ID = startMessage.chat.id;
@@ -61,10 +65,14 @@ export default class Converter {
 				})
 				.on('progress', p => {
 					readline.cursorTo(process.stdout, 0);
-					const message = `${p.targetSize}kb downloaded; ${Math.round(p.percent)} %`;
-					// TODO if (this.CTX) {
-					// 	this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
-					// }
+					const downloadPercent = Math.round(
+						p.percent,
+					);
+					this.downloadPercent = downloadPercent;
+					const message = `${p.targetSize}kb downloaded; ${downloadPercent} %`;
+					if (this.CTX && this.downloadPercent + 10 > downloadPercent) {
+						this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
+					}
 
 					if (p.targetSize > 1000000) {
 						reject(new Error('The file is very big 🛑'));
@@ -76,10 +84,13 @@ export default class Converter {
 					reject(new Error(error));
 				})
 				.on('end', () => {
-					this.CTX.telegram.sendMessage(this.CTX.message.chat.id, 'Done');
+					this.CTX.telegram.sendMessage(
+						this.CTX.message.chat.id,
+						'File downloaded. Wait',
+					);
+					this.downloadPercent = 0;
 					resolve();
-				},
-				)
+				})
 				.outputOptions('-c copy')
 				.outputOptions('-bsf:a aac_adtstoasc')
 				.output(this.OUTPUT_FILE)

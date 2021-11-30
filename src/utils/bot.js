@@ -29,7 +29,7 @@ const handlerTextBot = async ctx => {
 			const {result} = await download(text, ctx);
 			log.info({result});
 			posts.push(result);
-			await db.write();
+			// await db.write();
 			return ctx.reply(`Url: ${result.url}, time: ${result.time}`);
 		} catch (error) {
 			log.error(error);

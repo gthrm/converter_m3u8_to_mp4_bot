@@ -68,9 +68,9 @@ export default class Converter {
 					const downloadPercent = Math.round(
 						p.percent,
 					);
-					this.downloadPercent = downloadPercent;
 					const message = `${p.targetSize}kb downloaded; ${downloadPercent} %`;
-					if (this.CTX && this.downloadPercent + 10 > downloadPercent) {
+					if (this.CTX && (!this.downloadPercent || downloadPercent > this.downloadPercent + 10)) {
+						this.downloadPercent = downloadPercent;
 						this.CTX.telegram.editMessageText(this.CHAT_ID, this.MESSAGE_ID, this.MESSAGE_ID, message);
 					}
 

@@ -9,7 +9,9 @@ dotenv.config();
 const converter = new Converter();
 export async function download(m3uPath, ctx) {
   try {
-    const fileNameInput = `${uid()}.mp4`;
+    const newFileName = uid();
+    logger.info('New file name', newFileName);
+    const fileNameInput = `${newFileName}.mp4`;
     await converter.setInputFile(m3uPath)
       .setOutputFile(fileNameInput)
       .setContext(ctx)

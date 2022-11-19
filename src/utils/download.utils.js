@@ -1,4 +1,4 @@
-import { v4 as uid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
 import Converter from './converter.utils.js';
 import { saveToSpaces } from './aws.utils.js';
@@ -9,9 +9,9 @@ dotenv.config();
 const converter = new Converter();
 export async function download(m3uPath, ctx) {
   try {
-    const newFileName = uid();
-    logger.info('New file name', newFileName);
+    const newFileName = uuid();
     const fileNameInput = `${newFileName}.mp4`;
+    logger.info('New file name', fileNameInput);
     await converter.setInputFile(m3uPath)
       .setOutputFile(fileNameInput)
       .setContext(ctx)

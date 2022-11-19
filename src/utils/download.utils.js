@@ -11,7 +11,7 @@ export async function download(m3uPath, ctx) {
   try {
     const newFileName = uuid();
     const fileNameInput = `${newFileName}.mp4`;
-    logger.info('New file name', fileNameInput);
+    logger.info(fileNameInput);
     await converter.setInputFile(m3uPath)
       .setOutputFile(fileNameInput)
       .setContext(ctx)

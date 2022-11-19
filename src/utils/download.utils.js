@@ -8,6 +8,8 @@ dotenv.config();
 
 const converter = new Converter();
 export async function download(m3uPath, ctx) {
+  logger.info(m3uPath);
+
   try {
     const newFileName = uuid();
     const fileNameInput = `${newFileName}.mp4`;

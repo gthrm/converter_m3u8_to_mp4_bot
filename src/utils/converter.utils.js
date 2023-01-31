@@ -1,7 +1,6 @@
 import ffmpeg from 'fluent-ffmpeg';
 import readline from 'readline';
 import dotenv from 'dotenv';
-import { logger } from './logger.utils.js';
 
 dotenv.config();
 
@@ -74,12 +73,6 @@ export default class Converter {
             p.percent,
           );
           const message = `${p.targetSize}kb downloaded; ${downloadPercent} %`;
-          if (p.targetSize > 1000000) {
-            logger.info('The file is big', p);
-
-            reject(new Error('The file is very big 🛑'));
-          }
-
           process.stdout.write(message);
         })
         .on('error', (error) => {

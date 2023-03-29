@@ -68,11 +68,11 @@ export default class Converter {
           }
         })
         .on('progress', (p) => {
-          readline.cursorTo(process.stdout, 0);
+          readline.cursorTo(process?.stdout, 0);
           const downloadPercent = Math.round(
-            p.percent,
+            p?.percent,
           );
-          const message = `${p.targetSize}kb downloaded; ${downloadPercent} %`;
+          const message = `${p?.targetSize}kb downloaded; ${downloadPercent} %`;
           process.stdout.write(message);
         })
         .on('error', (error) => {

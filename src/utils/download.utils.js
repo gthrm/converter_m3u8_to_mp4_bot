@@ -22,8 +22,8 @@ export async function download(m3uPath, ctx) {
     return { result };
   } catch (error) {
     const message = 'Error!';
-    const errorData = { error: { message, data: error } };
-    logger.error(errorData);
+    logger.error(message);
+    logger.error(error);
     throw new Error(message);
   }
 }

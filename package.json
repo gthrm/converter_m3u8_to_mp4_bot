@@ -24,12 +24,14 @@
     "multer-s3": "^2.10.0",
     "telegraf": "^4.4.0",
     "uuid": "^8.3.2",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "winston-transport": "^4.7.0"
   },
   "devDependencies": {
     "eslint": "^8.28.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-xo": "^0.39.0",
     "eslint-plugin-import": "^2.26.0"
-  }
+  },
+  "packageManager": "pnpm@8.15.6+sha256.01c01eeb990e379b31ef19c03e9d06a14afa5250b82e81303f88721c99ff2e6f"
 }

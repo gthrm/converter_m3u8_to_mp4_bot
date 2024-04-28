@@ -1,5 +1,6 @@
 import { createLogger, format, transports } from 'winston';
 import dotenv from 'dotenv';
+import { TelegramTransport } from './telegram-transport.utils.js';
 
 dotenv.config();
 
@@ -36,3 +37,10 @@ if (process.env.NODE_ENV !== 'production') {
     ),
   }));
 }
+
+const telegramTransport = new TelegramTransport({
+  telegramBotToken: process.env.BOT_TOKEN,
+  chatId: process.env.CHAT_ID,
+});
+
+logger.add(telegramTransport);

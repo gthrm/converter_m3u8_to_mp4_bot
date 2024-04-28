@@ -20,12 +20,12 @@ const handlerTextBot = async (ctx) => {
     const validUrl = (text.includes(HTTPS_IDENTIFIER) || text.includes(HTTP_IDENTIFIER))
     && text.includes(M3U8_IDENTIFIER);
     if (!availableUserIds.includes(String(userId))) {
-      logger.warn(`User ${userId}, name ${firstName} is stranger`);
+      logger.error(`User ${userId}, name ${firstName} is stranger`);
       return ctx.reply(`${firstName}, you stranger!`);
     }
 
     if (!validUrl) {
-      logger.warn(`User ${userId}, name ${firstName} url not valid`);
+      logger.error(`User ${userId}, name ${firstName} url not valid: ${text}`);
       return ctx.reply('It\'s not valid');
     }
 

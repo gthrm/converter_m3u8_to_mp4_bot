@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import Converter from './converter.utils.js';
 import { saveToSpaces } from './aws.utils.js';
 import { logger } from './logger.utils.js';
+import { Input } from 'telegraf';
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ export async function download(m3uPath, ctx) {
       .start();
 
     const result = await saveToSpaces(fileNameInput);
-    await ctx.replyWithVideo({ source: result.url });
+    console.log('result', result);
+    await ctx.replyWithVideo(Input.fromURL(result.url));
     return { result };
   } catch (error) {
     const message = 'Error!';

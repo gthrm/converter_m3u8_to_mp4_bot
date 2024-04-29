@@ -40,7 +40,7 @@ const handlerTextBot = async (ctx) => {
   }
 
   logger.warn(`User ${userId} is bot`);
-  return ctx.reply(`${firstName}, you fucking bot!`);
+  return ctx.reply(`${firstName}, you are fucking bot!`);
 };
 
 export const bot = new Telegraf(BOT_TOKEN, { handlerTimeout: 9_000_000 });

@@ -18,7 +18,9 @@ export async function download(m3uPath, ctx) {
       .setOutputFile(fileNameInput)
       .setContext(ctx)
       .start();
+
     const result = await saveToSpaces(fileNameInput);
+    await ctx.replyWithVideo({ source: result.url });
     return { result };
   } catch (error) {
     const message = 'Error!';

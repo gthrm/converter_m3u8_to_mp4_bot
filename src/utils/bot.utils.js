@@ -31,7 +31,7 @@ const handlerTextBot = async (ctx) => {
 
     try {
       const { result } = await download(text, ctx);
-      logger.info({ result });
+      logger.info(`Url: ${result.url}, time: ${result.time}`);
       return ctx.reply(`Url: ${result.url}, time: ${result.time}`);
     } catch (error) {
       logger.error(error);

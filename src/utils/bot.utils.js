@@ -44,11 +44,11 @@ const handlerTextBot = async (ctx) => {
 };
 
 export const bot = new Telegraf(BOT_TOKEN, { handlerTimeout: 9_000_000 });
+bot.hears('hi', (ctx) => ctx.reply('Hey there'));
 bot.start((ctx) => ctx.reply('Welcome!'));
 bot.help((ctx) => ctx.reply('Send me a link'));
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 bot.on('text', handlerTextBot);
-bot.hears('hi', (ctx) => ctx.reply('Hey there'));
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));

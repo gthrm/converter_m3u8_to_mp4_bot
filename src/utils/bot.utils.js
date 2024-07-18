@@ -8,7 +8,7 @@ dotenv.config();
 const { AVAILABLE_USER_IDS, BOT_TOKEN } = process.env;
 const HTTPS_IDENTIFIER = 'https://';
 const HTTP_IDENTIFIER = 'http://';
-const M3U8_IDENTIFIER = '.m3u8';
+// const M3U8_IDENTIFIER = '.m3u8';
 
 const handlerTextBot = async (ctx) => {
   const userId = ctx.message.from.id;
@@ -17,8 +17,7 @@ const handlerTextBot = async (ctx) => {
   if (!isBot) {
     const availableUserIds = AVAILABLE_USER_IDS.split(';');
     const { text } = ctx.message;
-    const validUrl = (text.includes(HTTPS_IDENTIFIER) || text.includes(HTTP_IDENTIFIER))
-    && text.includes(M3U8_IDENTIFIER);
+    const validUrl = (text.includes(HTTPS_IDENTIFIER) || text.includes(HTTP_IDENTIFIER));
     if (!availableUserIds.includes(String(userId))) {
       logger.error(`User ${userId}, name ${firstName} is stranger`);
       return ctx.reply(`${firstName}, you stranger!`);
